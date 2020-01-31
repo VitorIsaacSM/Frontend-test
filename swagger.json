@@ -54,7 +54,7 @@
       ],
       "get": {
         "tags": ["Formulário"],
-        "summary": "Download do arquivo atravéz do nome, o qual é recebido por campos do tipo arquivo do formulário",
+        "summary": "Download do arquivo através do nome, o qual é recebido por campos do tipo arquivo do formulário",
         "produces": ["application/pdf"],
         "responses": {
           "200": {
