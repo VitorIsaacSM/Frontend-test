@@ -41,7 +41,7 @@ router.get('/formulario', (req, res) => {
     res.json(montaFormularioRandomico());
 });
 
-router.get('/file/:name', (req, res) => {
+router.get('/arquivo/:name', (req, res) => {
     const fileName = req.params['name'] + '.pdf'
     var data
     try {
