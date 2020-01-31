@@ -60,8 +60,7 @@
           "200": {
             "description": "Nome válido",
             "schema": {
-              "type": "string",
-              "format": "byte"
+              "type": "file"
             }
           },
           "400": {

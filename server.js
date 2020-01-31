@@ -67,7 +67,7 @@ function montaFormularioRandomico() {
             campo.opcoes = montaOpcoesSelecao();
             campo.valor = campo.opcoes[getRandomNumberWithRange(0, campo.opcoes.length - 1)];
         } else if (campo.tipo === TIPO_FORM.ARQUIVO) {
-            campo.valor = `/arquivo/pdf${getRandomNumberWithRange(1,3)}`
+            campo.valor = `pdf${getRandomNumberWithRange(1,3)}`
         } else {
             campo.valor = campo.tipo === TIPO_FORM.NUMERICO ? 0 : '';
         }
