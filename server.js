@@ -63,7 +63,7 @@ function montaFormularioRandomico() {
     for (let i = 0; i < getRandomNumberWithRange(2, 9); i++) {
         const campo = {...TIPO_CAMPO};
         campo.tipo = getRandomFormType();
-        campo.titulo = `Campo ${i+1},tipo ${campo.tipo}`
+        campo.titulo = `Campo ${i+1}, tipo ${campo.tipo}`
         if (campo.tipo === TIPO_FORM.SELECAO) {
             campo.opcoes = montaOpcoesSelecao();
             campo.valor = campo.opcoes[getRandomNumberWithRange(0, campo.opcoes.length - 1)];
