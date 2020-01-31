@@ -1,0 +1,147 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Hammer - Test de admissão",
+    "description": "Teste de capacitação",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Formulário",
+      "description": ""
+    },
+    {
+      "name": "Tabela",
+      "description": ""
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json", "application/pdf"],
+  "paths": {
+    "/formulario": {
+      "get": {
+        "tags": ["Formulário"],
+        "summary": "Responde um formulário com campos auto gerados em ordem aleatória.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TipoCampo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/arquivo/{nome}": {
+      "parameters": [
+        {
+          "name": "nome",
+          "in": "path",
+          "required": true,
+          "description": "Nome do arquivo que voce recebeu como valor de um campo do formulário",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Formulário"],
+        "summary": "Download do arquivo atravéz do nome, o qual é recebido por campos do tipo arquivo do formulário",
+        "produces": ["application/pdf"],
+        "responses": {
+          "200": {
+            "description": "Nome válido",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "400": {
+            "description": "Nome inválido"
+          }
+        }
+      }
+    },
+    "/tabela": {
+      "get": {
+        "tags": ["Tabela"],
+        "summary": "Consulta de uma tabela, o array de resposta pode conter até todas as props descritas, mas nenhuma é obrigatória. A tabela deve se adequar ao array de objetos recebidos e exibir apenas colunas das propriedades recebidas.",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TipoRow"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TipoCampo": {
+      "required": ["tipo", "valor"],
+      "properties": {
+        "tipo": {
+          "type": "string",
+          "enum": ["NUMERICO", "TEXTO", "SELECAO", "ARQUIVO"],
+          "description": "tipo do campo"
+        },
+        "valor": {
+          "type": "string",
+          "description": "Valor de acordo com o tipo do campo, podendo ser um numero ou uma string"
+        },
+        "opcoes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TipoRow": {
+      "properties": {
+        "usuário": {
+          "type": "string"
+        },
+        "paramêtro": {
+          "type": "number"
+        },
+        "tipo linha": {
+          "type": "number"
+        },
+        "transmissão": {
+          "type": "number"
+        },
+        "sequencia energética": {
+          "type": "number"
+        },
+        "produtividade": {
+          "type": "number"
+        },
+        "lucratividade": {
+          "type": "number"
+        },
+        "liquidez": {
+          "type": "number"
+        },
+        "crescimento": {
+          "type": "number"
+        },
+        "rendimento": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
