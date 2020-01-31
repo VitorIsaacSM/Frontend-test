@@ -2,17 +2,20 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const bodyparser = require('body-parser');
 const swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
 
 const app = express();
 const router = express.Router();
 
-app.listen(process.env.PORT | 3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Server Started')
 });
 
 app.use(cors());
+
+app.use(bodyparser.json());
 
 router.get('/tabela', (req, res) => {
     const rows = []
