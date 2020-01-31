@@ -63,6 +63,7 @@ function montaFormularioRandomico() {
     for (let i = 0; i < getRandomNumberWithRange(2, 9); i++) {
         const campo = {...TIPO_CAMPO};
         campo.tipo = getRandomFormType();
+        campo.titulo = `Campo ${i+1},tipo ${campo.tipo}`
         if (campo.tipo === TIPO_FORM.SELECAO) {
             campo.opcoes = montaOpcoesSelecao();
             campo.valor = campo.opcoes[getRandomNumberWithRange(0, campo.opcoes.length - 1)];
@@ -113,6 +114,7 @@ const TIPO_FORM = {
 
 
 const TIPO_CAMPO = {
+    titulo: null,
     tipo: null,
     valor: null,
     opcoes: null
@@ -121,12 +123,12 @@ const TIPO_CAMPO = {
 const TIPO_ROW = {
     "usuário": null,
     "paramêtro": null,
-    "tipo linha": null,
-    transmissão: null,
-    "sequencia energética": null,
-    produtividade: null,
-    lucratividade: null,
-    liquidez: null,
-    crescimento: null,
-    rendimento: null,
+    "tipoLinha": null,
+    "transmissão": null,
+    "sequenciaEnergética": null,
+    "produtividade": null,
+    "lucratividade": null,
+    "liquidez": null,
+    "crescimento": null,
+    "rendimento": null,
 }

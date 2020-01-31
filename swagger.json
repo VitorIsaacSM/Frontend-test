@@ -90,8 +90,12 @@
   },
   "definitions": {
     "TipoCampo": {
-      "required": ["tipo", "valor"],
+      "required": ["tipo", "valor", "titulo"],
       "properties": {
+        "titulo": {
+          "type":"string",
+          "description": "titulo do campo"
+        },
         "tipo": {
           "type": "string",
           "enum": ["NUMERICO", "TEXTO", "SELECAO", "ARQUIVO"],
@@ -117,13 +121,13 @@
         "paramêtro": {
           "type": "number"
         },
-        "tipo linha": {
+        "tipoLinha": {
           "type": "number"
         },
         "transmissão": {
           "type": "number"
         },
-        "sequencia energética": {
+        "sequenciaEnergética": {
           "type": "number"
         },
         "produtividade": {
