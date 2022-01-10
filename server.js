@@ -190,7 +190,7 @@ function montaFormularioRandomico() {
         } else if (campo.tipo === TIPO_FORM.ARQUIVO) {
             campo.valor = `pdf${getRandomNumberWithRange(1,3)}`
         } else {
-            campo.valor = campo.tipo === TIPO_FORM.NUMERICO ? 0 : '';
+            campo.valor = campo.tipo === TIPO_FORM.NUMERICO ? 100 : '';
         }
         formulario.push(campo)
     }
