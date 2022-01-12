@@ -19,16 +19,20 @@
     {
       "name": "Tabela",
       "description": ""
+    },
+    {
+      "name": "Autenticação",
+      "description": ""
     }
   ],
-  "schemes": ["https"],
+  "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json", "application/pdf"],
   "paths": {
     "/formulario": {
       "get": {
         "tags": ["Formulário"],
-        "summary": "Responde um formulário com campos auto gerados em ordem aleatória.",
+        "summary": "Retorna um formulário com campos auto gerados em ordem aleatória.",
         "responses": {
           "200": {
             "description": "OK",
@@ -40,31 +44,33 @@
             }
           }
         }
-      }
-    },
-    "/arquivo/{nome}": {
-      "parameters": [
-        {
-          "name": "nome",
-          "in": "path",
-          "required": true,
-          "description": "Nome do arquivo que voce recebeu como valor de um campo do formulário",
-          "type": "string"
-        }
-      ],
-      "get": {
+      },
+      "post": {
         "tags": ["Formulário"],
-        "summary": "Download do arquivo através do nome, o qual é recebido por campos do tipo arquivo do formulário",
-        "produces": ["application/pdf"],
+        "summary": "Valida os campos fornecidos pelo usuário",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "type": "array",
+            "schema": {
+              "$ref": "#/definitions/TipoCampoPost"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Nome válido",
-            "schema": {
-              "type": "file"
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "Nome inválido"
+            "description": "Error",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TipoCampo"
+              }
+            }
           }
         }
       }
@@ -72,7 +78,7 @@
     "/tabela": {
       "get": {
         "tags": ["Tabela"],
-        "summary": "Consulta de uma tabela, o array de resposta pode conter até todas as props descritas, mas nenhuma é obrigatória. A tabela deve se adequar ao array de objetos recebidos e exibir apenas colunas das propriedades recebidas.",
+        "summary": "Retorna uma lista de objetos que devem ser usados para gerar uma tabela dinamicamente",
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -83,6 +89,52 @@
                 "$ref": "#/definitions/TipoRow"
               }
             }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Autenticação"],
+        "summary": "Realiza autenticação do usuário através do email e senha",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/CampoLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cadastro": {
+      "post": {
+        "tags": ["Autenticação"],
+        "summary": "Realiza o cadastro do usuário",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/CampoCadastro"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -110,6 +162,65 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "TipoCampoPost": {
+      "type": "array",
+      "items": {
+        "required": ["tipo", "valor", "id"],
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": ["NUMERICO", "TEXTO", "SELECAO", "ARQUIVO"],
+            "description": "tipo do campo"
+          },
+          "valor": {
+            "type": "string",
+            "description": "Valor de acordo com o tipo do campo, podendo ser um numero ou uma string"
+          },
+          "id": {
+            "type": "number",
+            "description": "Id do campo"
+          }
+        }
+      }
+    },
+    "CampoLogin": {
+      "type": "object",
+      "required": ["email", "senha"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "senha": {
+          "type": "string"
+        }
+      }
+    },
+    "CampoCadastro": {
+      "type": "object",
+      "required": ["email", "senha"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "senha": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "string",
+          "enum": ["NUMERICO", "TEXTO", "SELECAO", "ARQUIVO"],
+          "description": "tipo do campo"
+        },
+        "endereco": {
+          "type": "string"
+        },
+        "telefone": {
+          "type": "string"
         }
       }
     },
